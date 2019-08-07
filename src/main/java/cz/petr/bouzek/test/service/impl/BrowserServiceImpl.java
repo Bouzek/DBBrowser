@@ -1,32 +1,26 @@
 package cz.petr.bouzek.test.service.impl;
 
 import cz.petr.bouzek.test.dao.entity.DBConnectionDetail;
-import cz.petr.bouzek.test.dto.DBColumnDTO;
-import cz.petr.bouzek.test.dto.DBSchemaDTO;
-import cz.petr.bouzek.test.dto.DBTableDTO;
-import cz.petr.bouzek.test.dto.DBTablePreviewDTO;
+import cz.petr.bouzek.test.dto.*;
 import cz.petr.bouzek.test.service.BrowserService;
 import cz.petr.bouzek.test.service.ConnectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Field;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
 @Slf4j
 public class BrowserServiceImpl implements BrowserService {
 
+    private static final int PREVIEW_ROW_LIMIT = 10;
+
     private final ConnectionService connectionService;
+
 
     @Override
     public List<DBSchemaDTO> listSchemas(DBConnectionDetail connectionDetail) {
@@ -106,7 +100,40 @@ public class BrowserServiceImpl implements BrowserService {
 
     @Override
     public DBTablePreviewDTO getTablePreview(DBConnectionDetail connectionDetail, String catalog, String table) {
-        return null;
+        DBTablePreviewDTO preview = new DBTablePreviewDTO();
+        preview.setColumnsInfo(listColumns(connectionDetail, catalog, table));
+
+        Connection connection = connectionService.getConnection(connectionDetail);
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from ?.? LIMIT ?");
+            statement.setString(1, catalog);
+            statement.setString(2, table);
+            statement.setInt(3, PREVIEW_ROW_LIMIT);
+            
+            ResultSet result = statement.executeQuery();
+
+            int columns = result.getMetaData().getColumnCount();
+
+            while (result.next()) {
+                int column = 1;
+                DBrowDTO row = new DBrowDTO();
+
+                while (column < columns) {
+                    row.addValue(result.getObject(column++).toString());
+                }
+
+                preview.getData().add(row);
+            }
+            statement.close();
+        } catch (SQLException e) {
+            log.error("SQL error listing preview of table - " + e.getMessage());
+        }
+
+        log.info("Finished listing preview of table");
+
+
+        return preview;
     }
 
 }

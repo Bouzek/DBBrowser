@@ -10,8 +10,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DBTablePreviewDTO {
+public class DBrowDTO {
+    private List<String> values = new ArrayList<>();
 
-    private List<DBColumnDTO> columnsInfo;
-    private List<DBrowDTO> data = new ArrayList<>();
+    public void addValue(String value){
+        values.add(value);
+    }
 }
