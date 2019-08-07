@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "74c1868f-dd54-4927-9f3e-b5dd6f6e34ba",
+		"name": "DBBrowser",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create connection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"test5\",\n\t\"hostname\":\"db4free.net\",\n\t\"port\":\"3306\",\n\t\"databaseName\":\"prdelkadatabaze\",\n\t\"username\":\"prdelkadatabaze2\",\n\t\"password\":\"uyn78RVA\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/connections",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"connections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get connections",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/connections",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"connections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List schemas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/browser/test1/schemas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"browser",
+						"test1",
+						"schemas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List tables",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/browser/test1/tables",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"browser",
+						"test1",
+						"tables"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get columns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/browser/test1/prdelkadatabaze/tabule/columns",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"browser",
+						"test1",
+						"prdelkadatabaze",
+						"tabule",
+						"columns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Preview data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/browser/test1/prdelkadatabaze/tabule/preview",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"browser",
+						"test1",
+						"prdelkadatabaze",
+						"tabule",
+						"preview"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

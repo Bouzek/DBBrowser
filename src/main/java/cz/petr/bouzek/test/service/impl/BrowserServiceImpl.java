@@ -106,11 +106,9 @@ public class BrowserServiceImpl implements BrowserService {
         Connection connection = connectionService.getConnection(connectionDetail);
 
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from ?.? LIMIT ?");
-            statement.setString(1, catalog);
-            statement.setString(2, table);
-            statement.setInt(3, PREVIEW_ROW_LIMIT);
-            
+            //todo escape catalog and table
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + catalog + "." + table + " LIMIT ?;");
+            statement.setInt(1, PREVIEW_ROW_LIMIT);
             ResultSet result = statement.executeQuery();
 
             int columns = result.getMetaData().getColumnCount();
