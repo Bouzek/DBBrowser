@@ -4,6 +4,7 @@ import cz.petr.bouzek.test.dao.entity.DBConnectionDetail;
 import cz.petr.bouzek.test.dto.DBColumnDTO;
 import cz.petr.bouzek.test.dto.DBSchemaDTO;
 import cz.petr.bouzek.test.dto.DBTableDTO;
+import cz.petr.bouzek.test.dto.DBTablePreviewDTO;
 import cz.petr.bouzek.test.service.BrowserService;
 import cz.petr.bouzek.test.service.ConnectionService;
 import lombok.RequiredArgsConstructor;
@@ -101,6 +102,11 @@ public class BrowserServiceImpl implements BrowserService {
 
         log.info("Finished listing columns");
         return columns;
+    }
+
+    @Override
+    public DBTablePreviewDTO getTablePreview(DBConnectionDetail connectionDetail, String catalog, String table) {
+        return null;
     }
 
 }

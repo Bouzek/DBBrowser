@@ -4,6 +4,7 @@ import cz.petr.bouzek.test.dao.entity.DBConnectionDetail;
 import cz.petr.bouzek.test.dto.DBColumnDTO;
 import cz.petr.bouzek.test.dto.DBSchemaDTO;
 import cz.petr.bouzek.test.dto.DBTableDTO;
+import cz.petr.bouzek.test.dto.DBTablePreviewDTO;
 import cz.petr.bouzek.test.service.BrowserService;
 import cz.petr.bouzek.test.service.DBConnectionDetailService;
 import javassist.tools.web.BadHttpRequest;
@@ -45,6 +46,13 @@ public class BrowserController {
                                              @PathVariable("schema") String schema, @PathVariable("table") String table) throws BadHttpRequest {
         DBConnectionDetail connectionDetail = getConnectionDetail(connectionName);
         return browserService.listColumns(connectionDetail, schema, table);
+    }
+
+    @GetMapping(path = "/{connectionName}/{schema}/{table}/preview")
+    public DBTablePreviewDTO tablePreview(@PathVariable("connectionName") String connectionName,
+                                          @PathVariable("schema") String schema, @PathVariable("table") String table) throws BadHttpRequest {
+        DBConnectionDetail connectionDetail = getConnectionDetail(connectionName);
+        return browserService.getTablePreview(connectionDetail, schema, table);
     }
 
 
